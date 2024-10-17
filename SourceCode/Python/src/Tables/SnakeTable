@@ -1,0 +1,37 @@
+from db_Connection import get_engine
+from sqlalchemy import text
+
+
+engine = get_engine()
+
+
+with engine.connect() as conn:
+
+    create_table_query = """
+    IF NOT EXISTS (
+        SELECT * FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = 'Snake_Main'
+    )
+    BEGIN
+        CREATE TABLE Snake_Main (
+            SnakeId Int Primary KEY,
+            SnakeName VARCHAR(50) NOT NULL,
+            Sex VARCHAR(1) NOT NULL, 
+            Species VARCHAR(50) NOT NULL,       
+            Weight FLOAT NOT NULL,              
+            Length FLOAT,
+            Traits VARCHAR(60),
+            Proven BINARY, 
+            BirthDate DATETIME, 
+            Orgin VARCHAR(200),
+            Purchased BINARY,
+            PurchasePrice FLOAT, 
+            Disabilities BINARY,
+            Disability VARCHAR(100)
+        );
+    END
+    """
+
+    conn.execute(text(create_table_query)) 
+    print("Table created successfully, or already exists.")
+
