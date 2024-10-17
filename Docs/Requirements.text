@@ -1,0 +1,6 @@
+pyodbc==5.2.0
+ pip install pyodbc
+
+SQLAlchemy==2.0.36
+ pip install sqlalchemy
+
