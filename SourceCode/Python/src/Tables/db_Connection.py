@@ -4,7 +4,7 @@ def get_engine():
     server = 'localhost'
     database = 'ReptileDatabase'  
 
-    DATABASE_URL = connection_string = 'mssql+pyodbc://localhost/ReptileDatabase?driver=ODBC+Driver+17+for+SQL+Server'
+    DATABASE_URL = 'mssql+pyodbc://localhost/ReptileDatabase?driver=ODBC+Driver+17+for+SQL+Server'
 
     
     engine = create_engine(DATABASE_URL)

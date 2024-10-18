@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 
 def get_engine():
-    server = 'localhost'
+    server = 'localHost'
     database = 'ReptileDatabase'  
 
-    DATABASE_URL = connection_string = 'mssql+pyodbc://localhost/ReptileDatabase?driver=ODBC+Driver+17+for+SQL+Server'
+    DATABASE_URL = 'mssql+pyodbc://localHost/ReptileDatabase?driver=ODBC+Driver+17+for+SQL+Server'
 
     
     engine = create_engine(DATABASE_URL)

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from Db_Connection import get_engine
+from db_connection import get_engine
 from sqlalchemy import text
 
 engine = get_engine()
@@ -10,13 +10,13 @@ try:
 
     insert_data_query = """
     INSERT INTO Feeding (Name, Weight, Food, FoodWeight) 
-    VALUES (?, ?, ?, ?);
+    VALUES (:Name, :Weight, :Food, :FoodWeight)
     """
 
     data_to_insert = [
-        {'Python',  100.5,'Rats',  2.0},
-        {'Boa Constrictor',  75.0, 'Mice', 1.5},
-        {'Anaconda', 200.0, 'Fish',  5.0}
+        {'Name':'Python', 'Weight': 100.5,'Food': 'Rats', 'FoodWeight': 2.0},
+        {'Name':'Boa Constrictor', 'Weight': 75.0, 'Food': 'Mice', 'FoodWeight': 1.5},
+        {'Name':'Anaconda', 'Weight': 200.0, 'Food': 'Fish', 'FoodWeight':  5.0}
     ]
 
     for data in data_to_insert:
