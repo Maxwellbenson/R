@@ -1,27 +1,37 @@
-from sqlalchemy import Table, Column, Integer, String, Float, DateTime, ForeignKey, MetaData, Boolean
-from db_Connection import get_engine
+from sqlalchemy import Column, Integer, String, Float, Boolean, insert, inspect
+import sys
+import os
+from sqlalchemy.orm import declarative_base
+from db_Connection import get_engine  
+Base = declarative_base()
+
+class Snake(Base):
+    __tablename__ = 'Snake_Main' 
+    
+    SnakeId = Column(Integer, primary_key=True, autoincrement=True)
+    SnakeName = Column(String(50), nullable=False)
+    Sex = Column(String(1), nullable=False)
+    Species = Column(String(50), nullable=False)
+    Weight = Column(Float, nullable=False)
+    Length = Column(Float)
+    Traits = Column(String(60))
+    Proven = Column(Boolean)
+    Origin = Column(String(200))
+    Purchased = Column(Boolean)
+    PurchasePrice = Column(Float)
+    Disabilities = Column(Boolean)
+    Disability = Column(String(100))
 
 engine = get_engine()
-metadata = MetaData()
 
-snake_main = Table(
-    'Snake_Main', metadata,
-    Column('SnakeId', Integer, primary_key=True),  
-    Column('SnakeName', String(50), nullable=False),
-    Column('Sex', String(1), nullable=False),
-    Column('Species', String(50), nullable=False),
-    Column('Weight', Float, nullable=False),
-    Column('Length', Float),
-    Column('Traits', String(60)),
-    Column('Proven', Integer),  # Change BOOLEAN to Integer or use Boolean if your dialect translates it to BIT
-    Column('Origin', String(200)),
-    Column('Purchased', Integer),  # Change BOOLEAN to Integer or use Boolean
-    Column('PurchasePrice', Float),
-    Column('Disabilities', Integer),  # Change BOOLEAN to Integer or use Boolean
-    Column('Disability', String(100))
-)
+def table_exists(engine, table_name):
+    """Check if a table exists in the database."""
+    inspector = inspect(engine)
+    return table_name in inspector.get_table_names()
 
-# Create the table in the database
-metadata.create_all(engine)
-
-print("Table created successfully.")
+if __name__ == "__main__":
+    if not table_exists(engine, Snake.__tablename__):
+        Base.metadata.create_all(engine)
+        print("Tables created successfully.")
+    else:
+        print("Table already exists")
