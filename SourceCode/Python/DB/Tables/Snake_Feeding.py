@@ -1,7 +1,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime,Boolean
 from sqlalchemy.orm import sessionmaker
-from db_connection import get_engine
+from db_Connection import get_engine
 
 
 Base = declarative_base()

@@ -1,6 +1,5 @@
-from sqlalchemy import Table, Column, Integer, String, Float, DateTime, ForeignKey, MetaData, BOOLEAN
+from sqlalchemy import Table, Column, Integer, String, Float, DateTime, ForeignKey, MetaData, Boolean
 from db_Connection import get_engine
-
 
 engine = get_engine()
 metadata = MetaData()
@@ -14,14 +13,15 @@ snake_main = Table(
     Column('Weight', Float, nullable=False),
     Column('Length', Float),
     Column('Traits', String(60)),
-    Column('Proven', BOOLEAN),
+    Column('Proven', Integer),  # Change BOOLEAN to Integer or use Boolean if your dialect translates it to BIT
     Column('Origin', String(200)),
-    Column('Purchased', BOOLEAN),
+    Column('Purchased', Integer),  # Change BOOLEAN to Integer or use Boolean
     Column('PurchasePrice', Float),
-    Column('Disabilities', BOOLEAN),
+    Column('Disabilities', Integer),  # Change BOOLEAN to Integer or use Boolean
     Column('Disability', String(100))
 )
 
+# Create the table in the database
 metadata.create_all(engine)
 
 print("Table created successfully.")
