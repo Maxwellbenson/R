@@ -10,7 +10,7 @@ print("Current sys.path:", sys.path)
 # Import the Snake class correctly
 from DB.Tables.Snake_Main import Snake  # Adjusted import
 
-from db_Connection import get_engine
+from Python.Veiws.db_Connection import get_engine
 from sqlalchemy import insert
 
 engine = get_engine()
