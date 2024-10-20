@@ -60,11 +60,11 @@ tk.Label(root, text="Species").grid(row=2, column=0)
 species_entry = tk.Entry(root)
 species_entry.grid(row=2, column=1)
 
-tk.Label(root, text="Weight").grid(row=3, column=0)
+tk.Label(root, text="Weight(g)").grid(row=3, column=0)
 weight_entry = tk.Entry(root)
 weight_entry.grid(row=3, column=1)
 
-tk.Label(root, text="Length").grid(row=4, column=0)
+tk.Label(root, text="Length(Cm)").grid(row=4, column=0)
 length_entry = tk.Entry(root)
 length_entry.grid(row=4, column=1)
 
