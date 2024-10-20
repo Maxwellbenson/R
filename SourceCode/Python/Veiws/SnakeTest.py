@@ -3,7 +3,6 @@ import sys
 import tkinter as tk
 from tkinter import messagebox
 from sqlalchemy import insert
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..')))
 from db_Connection import get_engine  
 from sqlalchemy import Column, Integer, String, Float, Boolean, inspect
 from sqlalchemy.orm import declarative_base
@@ -43,15 +42,12 @@ def submit_data():
         'Disability': disability_entry.get()
     }
     
-    # Insert the snake data into the database
     insert_snake(new_snake)
     messagebox.showinfo("Success", "Data inserted successfully.")
 
-# Create the main application window
 root = tk.Tk()
 root.title("Snake Database Entry")
 
-# Create form fields
 tk.Label(root, text="Snake Name").grid(row=0, column=0)
 snake_name_entry = tk.Entry(root)
 snake_name_entry.grid(row=0, column=1)
@@ -103,9 +99,6 @@ tk.Label(root, text="Disability").grid(row=11, column=0)
 disability_entry = tk.Entry(root)
 disability_entry.grid(row=11, column=1)
 
-# Submit button
 submit_button = tk.Button(root, text="Submit", command=submit_data)
 submit_button.grid(row=12, columnspan=2)
-
-# Run the Tkinter event loop
 root.mainloop()

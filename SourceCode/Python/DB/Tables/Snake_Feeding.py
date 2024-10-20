@@ -1,14 +1,15 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, Boolean, ForeignKey
-from db_Connection import get_engine
+from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, ForeignKey, inspect
+from sqlalchemy.orm import declarative_base
+from db_Connection import get_engine  
+from Snake_Main import Snake  
 
 Base = declarative_base()
 
-class Feeding(Base):
-    __tablename__ = 'Feeding_Main'  
-
+class Feed(Base):
+    __tablename__ = 'Feed_Main'
+    
     FeedId = Column(Integer, primary_key=True, autoincrement=True)
-    SnakeId = Column(Integer, ForeignKey('Snake_Main.SnakeId'), nullable=False)  # Corrected ForeignKey
+    SnakeId = Column(Integer) 
     Time = Column(DateTime)
     Food = Column(Float, nullable=False)
     FoodWeight = Column(Float)
@@ -18,7 +19,15 @@ class Feeding(Base):
     NewFood = Column(Boolean)
     Count = Column(Integer)
 
-def create_table():
-    engine = get_engine()
-    Base.metadata.create_all(engine)  # This will create the table only if it doesn't exist
-    print("Table created successfully.")
+engine = get_engine()
+
+def table_exists(engine, table_name):
+    inspector = inspect(engine)
+    return table_name in inspector.get_table_names()
+
+if __name__ == "__main__":
+    if not table_exists(engine, Feed.__tablename__):
+        Base.metadata.create_all(engine)
+        print("Tables created successfully.")
+    else:
+        print("Table already exists.")
