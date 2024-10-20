@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, ForeignKey, inspect
 from sqlalchemy.orm import declarative_base
 from db_Connection import get_engine  
-from Snake_Main import Snake  
 
 Base = declarative_base()
 
@@ -11,7 +10,7 @@ class Feed(Base):
     FeedId = Column(Integer, primary_key=True, autoincrement=True)
     SnakeId = Column(Integer) 
     Time = Column(DateTime)
-    Food = Column(Float, nullable=False)
+    Food = Column(String, nullable=False)
     FoodWeight = Column(Float)
     AddedSupplements = Column(Boolean)
     Supplements = Column(String(100))

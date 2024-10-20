@@ -6,15 +6,12 @@ from sqlalchemy import insert
 from db_Connection import get_engine  
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, inspect
 from sqlalchemy.orm import declarative_base
+from datetime import datetime  
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from DB.Tables.Snake_Feeding import Feed
 
 engine = get_engine()
-
-def table_exists(engine, table_name):
-    """Check if a table exists in the database."""
-    inspector = inspect(engine)
-    return table_name in inspector.get_table_names()
 
 def insert_feed(feed_data):
     """Insert a new feed record into the database."""
@@ -25,38 +22,42 @@ def insert_feed(feed_data):
     print("Data inserted successfully.")
 
 def submit_data():
-    """Handle the submission of data from the form."""
+    """Handle the submission of data from the form.""" 
     new_feed = {
-        'SnakeId': int(snake_id_entry.get()),  
-        'Time': time_entry.get(),  
-        'Food': float(food_entry.get()),
-        'FoodWeight': float(food_weight_entry.get()) if food_weight_entry.get() else None,
-        'AddedSupplements': added_supplements_var.get(),
-        'Supplements': supplements_entry.get(),
-        'AttitudeTowardsFood': attitude_entry.get(),
-        'NewFood': new_food_var.get(),
-        'Count': int(count_entry.get()) if count_entry.get() else None
-    }
+            'SnakeId': int(snake_id_entry.get()),
+            'Time': datetime.now(),  
+            'Food': food_entry.get(),
+            'FoodWeight': food_weight_entry.get() if food_weight_entry.get() else None,
+            'AddedSupplements': added_supplements_var.get(),
+            'Supplements': supplements_entry.get(),
+            'AttitudeTowardsFood': attitude_entry.get(),
+            'NewFood': new_food_var.get(),
+            'Count': int(count_entry.get()) if count_entry.get() else None
+        }
 
     insert_feed(new_feed)
     messagebox.showinfo("Success", "Data inserted successfully.")
 
+
 root = tk.Tk()
 root.title("Feed Database Entry")
+
+current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+tk.Label(root, text="Time").grid(row=1, column=0)
+time_entry = tk.Entry(root)
+time_entry.insert(0, current_time)  
+time_entry.grid(row=1, column=1)
+
 
 tk.Label(root, text="Snake ID").grid(row=0, column=0)
 snake_id_entry = tk.Entry(root)
 snake_id_entry.grid(row=0, column=1)
 
-tk.Label(root, text="Time (YYYY-MM-DD HH:MM:SS)").grid(row=1, column=0)
-time_entry = tk.Entry(root)
-time_entry.grid(row=1, column=1)
-
 tk.Label(root, text="Food").grid(row=2, column=0)
 food_entry = tk.Entry(root)
 food_entry.grid(row=2, column=1)
 
-tk.Label(root, text="Food Weight").grid(row=3, column=0)
+tk.Label(root, text="Food Weight(g)").grid(row=3, column=0)
 food_weight_entry = tk.Entry(root)
 food_weight_entry.grid(row=3, column=1)
 
@@ -84,5 +85,4 @@ count_entry.grid(row=8, column=1)
 
 submit_button = tk.Button(root, text="Submit", command=submit_data)
 submit_button.grid(row=9, columnspan=2)
-
 root.mainloop()
