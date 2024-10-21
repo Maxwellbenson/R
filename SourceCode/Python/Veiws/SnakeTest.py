@@ -46,7 +46,7 @@ def submit_data():
     messagebox.showinfo("Success", "Data inserted successfully.")
 
 root = tk.Tk()
-root.title("Snake Database Entry")
+root.title("Create new snake")
 
 tk.Label(root, text="Snake Name").grid(row=0, column=0)
 snake_name_entry = tk.Entry(root)
